@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Board from './Board.jsx';
+import Scoreboard from './Scoreboard.jsx';
 
 export default function Game() {
   const [boxes, setBoxes] = useState(Array(9).fill(''));
@@ -29,14 +30,19 @@ export default function Game() {
       [0, 4, 8],
       [2, 4, 6]
     ];
-
+    
+    // Check boxes on winner
     for (let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i];
       if (boxes[a] && boxes[a] === boxes[b] && boxes[a] === boxes[c]) {
         setWinner(boxes[a]);
       }
     }
-    return;
+
+    // Call it draw if everthing is filled out
+    if (boxes.indexOf('') === -1) {
+      setWinner('Draw');
+    }
   }
 
   return (
@@ -48,6 +54,7 @@ export default function Game() {
         }
       </div>
       <Board boxes={boxes} winner={winner} onBoxHandler={onBoxHandler} />
+      <Scoreboard />
     </div>
   )
 }
