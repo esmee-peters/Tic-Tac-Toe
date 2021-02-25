@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from './Box.jsx';
 
-export default function Board({boxes, onBoxHandler}) {
+export default function Board({boxes, winner, onBoxHandler}) {
   const createBox = (index) => {
     return (
       <Box
@@ -13,7 +13,7 @@ export default function Board({boxes, onBoxHandler}) {
   }
 
   return (
-    <div className="board">
+    <div className={`board ${winner ? 'board--disabled' : ''}`}>
       <div className="board__row">
         {createBox(0)}
         {createBox(1)}

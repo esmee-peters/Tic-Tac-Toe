@@ -47,7 +47,7 @@ export default function Game() {
           <h3>{player ? 'Player X' : 'Player O'} it's up to you</h3>
         }
       </div>
-      <Board boxes={boxes} onBoxHandler={onBoxHandler} />
+      <Board boxes={boxes} winner={winner} onBoxHandler={onBoxHandler} />
     </div>
   )
 }
