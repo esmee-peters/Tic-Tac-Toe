@@ -13,4 +13,4 @@ Now I add localStorage to the project, so I can create a scoreboard.
 
 ## todo
 - [ ] Draw text
-- [ ] Difficulty levels
+- [ ] Difficulty levels, nextEmptyBox

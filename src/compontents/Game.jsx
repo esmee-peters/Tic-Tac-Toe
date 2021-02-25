@@ -15,16 +15,18 @@ export default function Game() {
 
   const onBoxHandler = (i) => {
     const newBoxes = [...boxes]; 
-
+  
     if (player) {
       newBoxes[i] = 'X';
+  
+      // After player immediately computer time
+      const nextEmptyBox = newBoxes.indexOf('');
+      if (nextEmptyBox !== -1) {
+        newBoxes[nextEmptyBox] = 'O';
+      }
     }
-    else {
-      newBoxes[i] = 'O';
-    }
+  
     setBoxes(newBoxes);
-    setPlayer(!player);
-
     checkWinner(newBoxes);
   }
 
