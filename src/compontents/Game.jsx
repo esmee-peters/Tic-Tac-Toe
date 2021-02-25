@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Board from './Board.jsx';
 import Scoreboard from './Scoreboard.jsx';
 
@@ -6,6 +6,12 @@ export default function Game() {
   const [boxes, setBoxes] = useState(Array(9).fill(''));
   const [player, setPlayer] = useState(true);
   const [winner, setWinner] = useState(null);
+
+  const storage = window.localStorage;
+
+  if (!storage.getItem('games')) {
+    storage.setItem('games', JSON.stringify([]));
+  }
 
   const onBoxHandler = (i) => {
     const newBoxes = [...boxes]; 
@@ -45,6 +51,19 @@ export default function Game() {
     }
   }
 
+  const clearGame = () => {
+    setWinner(null);
+    setBoxes(Array(9).fill(''));
+  }
+
+  useEffect(() => {
+    if (winner === 'X' || winner === 'O' || winner === 'Draw' ) {
+      const playedGames = JSON.parse(storage.getItem('games'));
+      playedGames.push({ winner });
+      storage.setItem('games', JSON.stringify(playedGames));
+    }
+  }, [winner]);
+
   return (
     <div className="game">
       <div  className="game__status">
@@ -54,7 +73,8 @@ export default function Game() {
         }
       </div>
       <Board boxes={boxes} winner={winner} onBoxHandler={onBoxHandler} />
-      <Scoreboard />
+      <button onClick={() => clearGame()}>Reset game</button>
+      <Scoreboard storage={storage} />
     </div>
   )
 }
